@@ -10,6 +10,11 @@
 </head>
 <body>
 
+<!-- 断网提示条：离线时显示，在线时隐藏 -->
+<div id="offline-tip" class="alert alert-warning text-center mb-0 d-none" role="alert">
+  当前处于离线状态，图表与三维场景可能无法正常加载，请检查网络连接。
+</div>
+
 <!-- 顶部导航：四个入口，窄屏折叠 -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
   <div class="container">
@@ -127,5 +132,15 @@
 <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
 <script src="js/study-room.js"></script>
 <script src="js/stats.js"></script>
+<script>
+  // 网络状态提示
+  const offlineTip = document.getElementById('offline-tip');
+  function updateOnlineStatus() {
+    offlineTip.classList.toggle('d-none', navigator.onLine);
+  }
+  window.addEventListener('online', updateOnlineStatus);
+  window.addEventListener('offline', updateOnlineStatus);
+  updateOnlineStatus();
+</script>
 </body>
 </html>
