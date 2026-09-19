@@ -1,0 +1,19 @@
+/* 自定义样式：在 Bootstrap 基础上做少量补充 */
+
+body {
+  font-family: "Microsoft YaHei", "Segoe UI", sans-serif;
+}
+
+/* 锚点跳转时避开 sticky 导航栏的遮挡 */
+section[id] {
+  scroll-margin-top: 72px;
+}
+
+/* 卡片 hover 轻微上浮 */
+.card {
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,.12);
+}
