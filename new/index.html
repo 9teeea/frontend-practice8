@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>星瀚科技社 · 综合平台</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- 断网提示条 -->
+<div id="offline-tip" class="alert alert-warning text-center mb-0 d-none rounded-0" role="alert">
+  当前处于离线状态，图表与三维场景可能无法正常加载，请检查网络连接。
+</div>
+
+<!-- 顶部导航 -->
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top xh-nav">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center" href="#home">
+      <span class="xh-logo">✦</span>
+      <span class="ms-2">星瀚科技社</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="#home">首页</a></li>
+        <li class="nav-item"><a class="nav-link" href="#activities">活动管理</a></li>
+        <li class="nav-item"><a class="nav-link" href="#members">成员管理</a></li>
+        <li class="nav-item"><a class="nav-link" href="#dashboard">数据看板</a></li>
+        <li class="nav-item"><a class="nav-link" href="three-d/star-sea.html">星海漫游</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <!-- 首页 Hero -->
+  <section id="home" class="xh-hero">
+    <div class="container py-5 text-center text-white">
+      <h1 class="display-4 fw-bold mb-3">星瀚科技社</h1>
+      <p class="lead fs-4 mb-4">以代码为舟，渡星海无垠</p>
+      <p class="mb-4 opacity-75">整合社团活动管理、成员档案、数据看板与星海三维漫游，打造属于科技社的数字化工作台。</p>
+      <a href="#activities" class="btn btn-outline-light btn-lg">开始探索 →</a>
+    </div>
+  </section>
+
+  <div class="container my-5">
+    <!-- 模块卡片入口 -->
+    <section class="row g-4">
+      <div class="col-md-6 col-lg-3">
+        <div class="card h-100 xh-card">
+          <div class="card-body text-center">
+            <div class="xh-icon">📋</div>
+            <h5 class="card-title mt-2">活动管理</h5>
+            <p class="card-text small">记录社团活动，标记完成状态，按进度筛选。</p>
+            <a href="#activities" class="btn btn-primary btn-sm">进入</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div class="card h-100 xh-card">
+          <div class="card-body text-center">
+            <div class="xh-icon">👥</div>
+            <h5 class="card-title mt-2">成员管理</h5>
+            <p class="card-text small">维护社员档案，按姓名/部门快速检索。</p>
+            <a href="#members" class="btn btn-primary btn-sm">进入</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div class="card h-100 xh-card">
+          <div class="card-body text-center">
+            <div class="xh-icon">📊</div>
+            <h5 class="card-title mt-2">数据看板</h5>
+            <p class="card-text small">活动参与人次、部门分布可视化统计。</p>
+            <a href="#dashboard" class="btn btn-primary btn-sm">进入</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div class="card h-100 xh-card">
+          <div class="card-body text-center">
+            <div class="xh-icon">🌌</div>
+            <h5 class="card-title mt-2">星海漫游</h5>
+            <p class="card-text small">Three.js 三维星空与行星系统，社团视觉符号。</p>
+            <a href="three-d/star-sea.html" class="btn btn-primary btn-sm">进入</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- 活动管理区 -->
+  <section id="activities" class="py-5 xh-section">
+    <div class="container">
+      <h2 class="mb-3">📋 活动管理</h2>
+      <p class="text-muted">记录社团待办与已办活动，数据保存在本地浏览器。</p>
+
+      <form id="act-form" class="row g-2 mb-3">
+        <div class="col-md-8">
+          <input type="text" id="act-input" class="form-control" placeholder="输入活动名称，如：前端分享会">
+        </div>
+        <div class="col-md-4">
+          <button type="submit" class="btn btn-primary w-100">添加活动</button>
+        </div>
+      </form>
+      <p class="text-danger small" id="act-tip"></p>
+
+      <div class="mb-3">
+        <button class="btn btn-sm btn-outline-primary me-2 act-filter active" data-filter="all">全部</button>
+        <button class="btn btn-sm btn-outline-primary me-2 act-filter" data-filter="active">进行中</button>
+        <button class="btn btn-sm btn-outline-primary act-filter" data-filter="done">已完成</button>
+      </div>
+      <ul id="act-list" class="list-group"></ul>
+    </div>
+  </section>
+
+  <!-- 成员管理区 -->
+  <section id="members" class="py-5 xh-section-alt">
+    <div class="container">
+      <h2 class="mb-3">👥 成员管理</h2>
+      <p class="text-muted">维护社员档案，支持姓名 / 学号 / 部门检索。</p>
+
+      <form id="mem-form" class="row g-2 mb-3">
+        <div class="col-md-3">
+          <input type="text" id="mem-name" class="form-control" placeholder="姓名">
+        </div>
+        <div class="col-md-3">
+          <input type="text" id="mem-id" class="form-control" placeholder="学号（10位）">
+        </div>
+        <div class="col-md-3">
+          <input type="text" id="mem-dept" class="form-control" placeholder="部门（选填）">
+        </div>
+        <div class="col-md-3">
+          <button type="submit" class="btn btn-primary w-100">添加成员</button>
+        </div>
+      </form>
+      <p class="text-danger small" id="mem-tip"></p>
+
+      <div class="mb-3">
+        <input type="search" id="mem-search" class="form-control" placeholder="搜索姓名 / 学号 / 部门">
+      </div>
+      <ul id="mem-list" class="list-group"></ul>
+    </div>
+  </section>
+
+  <!-- 数据看板区 -->
+  <section id="dashboard" class="py-5 xh-section">
+    <div class="container">
+      <h2 class="mb-3">📊 数据看板</h2>
+      <p class="text-muted" id="dash-subtitle">数据加载中…</p>
+
+      <p id="dash-status" class="alert alert-warning d-none"></p>
+
+      <div class="row g-3 mb-4" id="dash-cards"></div>
+
+      <div class="row g-3">
+        <div class="col-lg-6">
+          <h5 class="mb-2">月度活动参与人次（ECharts 柱状图）</h5>
+          <div id="bar-chart" style="height: 360px;"></div>
+        </div>
+        <div class="col-lg-6">
+          <h5 class="mb-2">各部门人数分布（Chart.js 环形图）</h5>
+          <div style="height: 360px;"><canvas id="doughnut-chart"></canvas></div>
+        </div>
+      </div>
+      <p class="text-muted small mt-2" id="dash-source"></p>
+    </div>
+  </section>
+</main>
+
+<footer class="xh-footer py-4">
+  <div class="container text-center text-white-50">
+    <small>星瀚科技社 · 个人技术整合练习原型 · 基于课堂作业五/六/七改造</small>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="js/activities.js"></script>
+<script src="js/members.js"></script>
+<script src="js/dashboard.js"></script>
+<script>
+  // 网络状态提示
+  const offlineTip = document.getElementById('offline-tip');
+  function updateOnlineStatus() {
+    offlineTip.classList.toggle('d-none', navigator.onLine);
+  }
+  window.addEventListener('online', updateOnlineStatus);
+  window.addEventListener('offline', updateOnlineStatus);
+  updateOnlineStatus();
+
+  // 导航高亮：滚动时高亮当前 section
+  const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+  const sections = document.querySelectorAll('section[id]');
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    sections.forEach(s => {
+      if (scrollY >= s.offsetTop - 120) cur = s.id;
+    });
+    navLinks.forEach(l => {
+      l.classList.toggle('active', l.getAttribute('href') === '#' + cur);
+    });
+  });
+</script>
+</body>
+</html>
